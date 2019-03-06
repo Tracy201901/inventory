@@ -1,0 +1,32 @@
+    <div class="layui-tab-item layui-show">
+         {% if data %}
+         <table class="layui-table" id="inventory_table">
+         <thead>
+         <sr>
+             <th>库存编号</th>
+             <th>商品名称</th>
+             <th>商品分类</th>
+             <th>商品数量</th>
+             <th>备注信息</th>
+             <th>编辑信息</th>
+             <th>删除信息</th>
+         </sr>
+         </thead>
+         <tbody>
+         {% for iterm in data %}
+         <tr>
+             <td>{{ iterm.id }}</td>
+             <td>{{ iterm.goods }}</td>
+             <td>{{ iterm.type }}</td>
+             <td>{{ iterm.num }}</td>
+             <td> {{ iterm.comment }}</td>
+             <td ><button class="layui-btn layui-btn-primary layui-btn-sm" onclick="btn_edit({{ iterm.id }})">编辑</button></td>
+             <td ><button class="layui-btn layui-btn-primary layui-btn-sm" onclick="btn_delete({{ iterm.id }})">删除</button></td>
+         </tr>
+        {% endfor %}
+         </tbody>
+         </table>
+    {% else %}
+         <div style="padding: 15px;">库存数据为空</div>
+     {% endif %}
+    </div>
