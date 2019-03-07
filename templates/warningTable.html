@@ -20,6 +20,7 @@
              <td>{{ iterm.warning_num }}</td>
              <td> {{ iterm.comment }}</td>
              <td ><button class="layui-btn layui-btn-primary layui-btn-sm" onclick="btn_edit({{ iterm.id }})">编辑</button></td>
+             <td ><button class="layui-btn layui-btn-primary layui-btn-sm" onclick="btn_delete({{ iterm.id }})">删除</button></td>
          </tr>
         {% endfor %}
          </tbody>

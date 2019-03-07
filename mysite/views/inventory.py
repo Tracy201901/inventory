@@ -7,6 +7,23 @@ from django.views.decorators.csrf import csrf_exempt
 
 mysqlOperate = MysqlOperate()
 
+def getGoodsNum(goods):
+
+    inbound = mysqlOperate.db_select("SELECT SUM(inbound_num) FROM inventory.inbound WHERE goods='" + goods+ "'")
+    outbound =mysqlOperate.db_select("SELECT SUM(outbound_num) FROM inventory.outbound WHERE goods='" + goods+ "'")
+    print(inbound,outbound)
+    entry = inbound[0][0]
+    out = outbound[0][0]
+    print(entry,out)
+    if entry==None and out==None:
+        return 0
+    elif entry==None:
+        return out
+    elif out==None:
+        return entry
+    else:
+        return str(int(entry)-int(out))
+
 
 def getInventoryList():
     """从数据库中取出列表数据，并将tuple转化成字典"""
@@ -17,7 +34,8 @@ def getInventoryList():
         dict['id'] = line[0]
         dict['goods'] = line[1]
         dict['type'] = line[2]
-        dict['num'] = line[3]
+        #dict['num'] = line[3]  商品数量为动态数据
+        dict['num'] = getGoodsNum(dict['goods'])
         dict['comment'] = line[4]
         inventory_list.append(dict)
     return inventory_list

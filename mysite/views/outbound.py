@@ -4,6 +4,7 @@ from django.shortcuts import HttpResponse, HttpResponseRedirect
 from mysite.models.mysqlOperate import MysqlOperate
 from django.views.decorators.csrf import csrf_exempt
 from mysite.views import timeStamp
+import time
 
 
 mysqlOperate = MysqlOperate()
@@ -19,7 +20,8 @@ def getOutboundList():
         dict['id'] = line[0]
         dict['goods'] = line[1]
         dict['outbound_num'] = line[2]
-        dict['outbound_date'] = line[3]
+        t = line[3]
+        dict['outbound_date'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
         dict['comment'] = line[4]
         outbound_list.append(dict)
     return outbound_list
